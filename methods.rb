@@ -1,3 +1,12 @@
+class InvalidGuessError < StandardError
+end
+
+class String 
+  def numeric?
+    Float(self) != nil rescue false
+  end
+end
+
 def generate_question
   num_1 = rand(200)
   num_2 = rand(200)
@@ -7,9 +16,10 @@ def generate_question
 end
 
 def prompt_player
-  user_answer = gets.chomp.to_i 
+  user_answer = gets.chomp
+  raise InvalidGuessError, "Guess must be an Integer eg. 205" unless  user_answer.numeric?
   user_answer
-end
+  end
 
 def verify_answer(answer, user_answer)
 
